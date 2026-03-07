@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const FOOD_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/5oFGR4LAiTGjHTW2hskrnb/sandbox/f8dkhDGu6pnjmn6Vw6vZ56-img-2_1772035143000_na1fn_dGF2b2xhLWZvb2QtaGVybw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvNW9GR1I0TEFpVEdqSFRXMmhza3JuYi9zYW5kYm94L2Y4ZGtoREd1NnBuam1uNlZ3NnZaNTYtaW1nLTJfMTc3MjAzNTE0MzAwMF9uYTFmbl9kR0YyYjJ4aExXWnZiMlF0YUdWeWJ3LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=GMdnPosghHus9voX7BIrTlrR-En08XiQeIicFsJRg8SNF5o7SYmi58dw5b7DU5R6SB7~rxiKaQCr2gqJAmwemj5nijFD5sIBAtQHtcT6AX86aqs4ucnaEEct-YTs25ae77hmjtIlQd0wj~iAeSGWRcDdqDaCF2323zr2qULcA4AjE4lqqW6OPBijAqMykfgEMd2iymDNxlyGkK933WcMNAVf5Q6MWtUQroZZJ6o3HSf8DktgsZPmcujiygx8PONmUsIEopWk5mkCjOInX~xJbtB~vIZLybqN2JnieyHNJUoU-N3CqViBCHnDqmc2wb41jfCpPFIGo9pc0xDgD0pr2w__";
+const FOOD_IMG = "/kebab.png";
+const HERO_IMG = "/hero-dining.png";
 
 type MenuItem = { name: string; desc: string; price: string; veg?: boolean };
 type MenuCategory = { category: string; items: MenuItem[] };
@@ -89,27 +90,30 @@ export default function Menu() {
   const activeMenu = menuData.find((c) => c.category === active);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0a0a0a]">
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-[50vh] overflow-hidden">
-        <img src={FOOD_IMG} alt="Tavola Menu" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
+      <section className="relative h-[55vh] overflow-hidden">
+        <img src={FOOD_IMG} alt="Tavola Menu" className="w-full h-full object-cover scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[#0a0a0a]" />
         <div className="absolute inset-0 flex items-center justify-center text-center">
           <div>
-            <motion.span
+            <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-[Cormorant_Garamond] text-gold/80 text-lg tracking-[0.3em] uppercase"
+              transition={{ duration: 0.8 }}
+              className="flex items-center justify-center gap-4 mb-4"
             >
-              Curated for You
-            </motion.span>
+              <div className="h-px w-12 bg-gold/40" />
+              <span className="font-[Cormorant_Garamond] text-gold/80 text-base tracking-[0.35em] uppercase">Curated for You</span>
+              <div className="h-px w-12 bg-gold/40" />
+            </motion.div>
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="font-[Playfair_Display] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mt-4"
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="font-[Playfair_Display] text-5xl sm:text-7xl lg:text-8xl font-bold text-white"
             >
               Our <span className="text-gold italic">Menu</span>
             </motion.h1>
@@ -118,19 +122,18 @@ export default function Menu() {
       </section>
 
       {/* Menu Content */}
-      <section className="py-16 sm:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 sm:py-24 bg-[#0a0a0a]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12">
           {/* Category Tabs */}
           <div className="flex flex-wrap justify-center gap-3 mb-16">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActive(cat)}
-                className={`px-5 py-2.5 font-[Cormorant_Garamond] text-sm uppercase tracking-[0.15em] transition-all duration-300 border ${
-                  active === cat
-                    ? "bg-gold text-charcoal border-gold"
-                    : "border-gold/20 text-ivory/60 hover:border-gold/50 hover:text-gold"
-                }`}
+                className={`px-5 py-2.5 font-[Lato] text-xs uppercase tracking-[0.2em] transition-all duration-300 border ${active === cat
+                    ? "bg-gold text-[#0a0a0a] border-gold font-bold"
+                    : "border-gold/20 text-ivory/50 hover:border-gold/50 hover:text-gold"
+                  }`}
               >
                 {cat}
               </button>
@@ -156,11 +159,11 @@ export default function Menu() {
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    className="group flex items-start justify-between gap-4 py-5 border-b border-gold/10 hover:border-gold/30 transition-colors"
+                    className="group flex items-start justify-between gap-4 py-6 border-b border-gold/10 hover:border-gold/30 transition-all duration-300 hover:pl-2"
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-3">
-                        <h3 className="font-[Playfair_Display] text-lg text-ivory group-hover:text-gold transition-colors">
+                        <h3 className="font-[Playfair_Display] text-xl text-ivory group-hover:text-gold transition-colors">
                           {item.name}
                         </h3>
                         {item.veg && (
@@ -174,9 +177,9 @@ export default function Menu() {
                           </span>
                         )}
                       </div>
-                      <p className="font-[Lato] text-ivory/40 text-sm mt-1">{item.desc}</p>
+                      <p className="font-[Lato] text-ivory/40 text-sm mt-1.5 leading-relaxed">{item.desc}</p>
                     </div>
-                    <span className="font-[Cormorant_Garamond] text-gold text-xl font-semibold shrink-0">
+                    <span className="font-[Playfair_Display] text-gold text-2xl font-bold shrink-0 ml-4">
                       {item.price}
                     </span>
                   </motion.div>
@@ -190,14 +193,22 @@ export default function Menu() {
             <p className="font-[Lato] text-ivory/40 text-sm">
               Prices are indicative and subject to applicable taxes. Menu items may vary seasonally.
             </p>
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="https://wa.me/919930969640?text=Hi%20Tavola!%20I'd%20like%20to%20place%20an%20order."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-10 py-4 bg-gold text-charcoal font-[Lato] font-bold uppercase tracking-[0.15em] text-sm hover:bg-gold-light transition-all"
+                className="inline-block px-10 py-4 bg-gold text-[#0a0a0a] font-[Lato] font-bold uppercase tracking-[0.18em] text-sm hover:bg-gold-light transition-all"
               >
                 Order via WhatsApp
+              </a>
+              <a
+                href="https://wa.me/919930969640?text=Hi%20Tavola!%20I'd%20like%20to%20make%20a%20reservation."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-10 py-4 border border-gold/40 text-gold font-[Lato] uppercase tracking-[0.18em] text-sm hover:bg-gold/10 transition-all"
+              >
+                Reserve a Table
               </a>
             </div>
           </div>

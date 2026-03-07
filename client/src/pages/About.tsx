@@ -4,8 +4,9 @@ import { ArrowRight, Award, Users, Utensils, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const HERO_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/5oFGR4LAiTGjHTW2hskrnb/sandbox/f8dkhDGu6pnjmn6Vw6vZ56-img-1_1772035144000_na1fn_dGF2b2xhLWhlcm8.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvNW9GR1I0TEFpVEdqSFRXMmhza3JuYi9zYW5kYm94L2Y4ZGtoREd1NnBuam1uNlZ3NnZaNTYtaW1nLTFfMTc3MjAzNTE0NDAwMF9uYTFmbl9kR0YyYjJ4aExXaGxjbTguanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Zas9Ak3d9phQJDlDk8mTOFQYANuX1kAyf9T981vwTtUW-VY9O6FARbAnQUnsQD4RK0e1RgASF69IoOyXd5DI7zVcoMcdF6EKgy8A4-14o4DWbP-gUBz-GgStXJGROyOFDk9yTH4AUGeKiDyR5q1UbTmunseR~uFZaLrpqSlVyAESEC1ecMjmgCnJHbx61nspupZ8fu2NEIlby-jO~jwzR66rB~zA3ZQ~Ufe6U~Ga3Yt9HwHHIjW-I8J5vNDOLzD75NkMfA26JcwVJw6V0webI1Irr-TSuXnyMpVijlmuNfo3qYXM1o7b2dWYfc0zHqFXNF7ngb71t2u9dlbt5JiWbA__";
-const COCKTAIL_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/5oFGR4LAiTGjHTW2hskrnb/sandbox/f8dkhDGu6pnjmn6Vw6vZ56-img-5_1772035136000_na1fn_dGF2b2xhLWNvY2t0YWls.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvNW9GR1I0TEFpVEdqSFRXMmhza3JuYi9zYW5kYm94L2Y4ZGtoREd1NnBuam1uNlZ3NnZaNTYtaW1nLTVfMTc3MjAzNTEzNjAwMF9uYTFmbl9kR0YyYjJ4aExXTnZZMnQwWVdscy5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=N7L6AHGRpIW1FpxY61sRHQ0m30rVQmg-ex2IetHfgIFpLnomrAS3HEoIPmJHJuVnI7d1HlBqbvRMaD5Jw3L3eYRQ1vs~zT6v7gik-5McO0ve2k4Jye0-SKZy65P4DJ8-nD~l0Wu7GAPEtvtnWGQCtRFU13GqPodQYynJqzx~UF6paM8fyCVahgEHTeiG9oZmDsntnEbuN1ySTt6u2Lk74aKQFyRHavrKHbTmbVXM8PArz7zN5dZKbCmiW33LtyXsUlkJlqjauCCeSMxSI9-k9OMfk9xHtDrezO5Aw4r-othl0TZz-dLhzdPC6Q33HUD8LypajcL~iWLkBWELl91Eng__";
+const HERO_IMG = "/hero-dining.png";
+const COCKTAIL_IMG = "/cocktails.png";
+const SEAFOOD_IMG = "/seafood.png";
 
 const stats = [
   { icon: Award, value: "10+", label: "Years of Excellence" },
@@ -16,27 +17,30 @@ const stats = [
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0a0a0a]">
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-[50vh] overflow-hidden">
-        <img src={HERO_IMG} alt="Tavola About" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
+      <section className="relative h-[55vh] overflow-hidden">
+        <img src={HERO_IMG} alt="Tavola About" className="w-full h-full object-cover scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[#0a0a0a]" />
         <div className="absolute inset-0 flex items-center justify-center text-center">
           <div>
-            <motion.span
+            <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-[Cormorant_Garamond] text-gold/80 text-lg tracking-[0.3em] uppercase"
+              transition={{ duration: 0.8 }}
+              className="flex items-center justify-center gap-4 mb-4"
             >
-              Our Story
-            </motion.span>
+              <div className="h-px w-12 bg-gold/40" />
+              <span className="font-[Cormorant_Garamond] text-gold/80 text-base tracking-[0.35em] uppercase">Our Story</span>
+              <div className="h-px w-12 bg-gold/40" />
+            </motion.div>
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="font-[Playfair_Display] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mt-4"
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="font-[Playfair_Display] text-5xl sm:text-7xl lg:text-8xl font-bold text-white"
             >
               About <span className="text-gold italic">Tavola</span>
             </motion.h1>
@@ -45,7 +49,7 @@ export default function About() {
       </section>
 
       {/* Story */}
-      <section className="py-24 sm:py-32">
+      <section className="py-28 sm:py-36 bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -86,7 +90,7 @@ export default function About() {
       </section>
 
       {/* Stats */}
-      <section className="py-20 bg-charcoal-light">
+      <section className="py-20 bg-[#080808]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
@@ -108,7 +112,7 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="py-24 sm:py-32">
+      <section className="py-28 sm:py-36 bg-[#0a0a0a]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.span
             initial={{ opacity: 0 }}
@@ -150,7 +154,7 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-charcoal-light text-center">
+      <section className="py-20 bg-[#080808] text-center">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="font-[Playfair_Display] text-3xl sm:text-4xl font-bold text-ivory mb-6">
             Come Experience <span className="text-gold italic">Tavola</span>
@@ -159,7 +163,7 @@ export default function About() {
             We'd love to welcome you to our table. Reserve your spot today.
           </p>
           <Link href="/reservations">
-            <span className="inline-flex items-center gap-2 px-10 py-4 bg-gold text-charcoal font-[Lato] font-bold uppercase tracking-[0.15em] text-sm hover:bg-gold-light transition-all">
+            <span className="inline-flex items-center gap-2 px-10 py-4 bg-gold text-[#0a0a0a] font-[Lato] font-bold uppercase tracking-[0.15em] text-sm hover:bg-gold-light transition-all">
               Make a Reservation <ArrowRight size={16} />
             </span>
           </Link>

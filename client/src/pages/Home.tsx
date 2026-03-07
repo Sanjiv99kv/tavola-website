@@ -1,246 +1,446 @@
-import { motion } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Star, MapPin, Clock, Utensils } from "lucide-react";
+import { ArrowRight, Star, MapPin, Clock, Utensils, ChevronDown, Phone, Quote } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const HERO_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/5oFGR4LAiTGjHTW2hskrnb/sandbox/f8dkhDGu6pnjmn6Vw6vZ56-img-1_1772035144000_na1fn_dGF2b2xhLWhlcm8.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvNW9GR1I0TEFpVEdqSFRXMmhza3JuYi9zYW5kYm94L2Y4ZGtoREd1NnBuam1uNlZ3NnZaNTYtaW1nLTFfMTc3MjAzNTE0NDAwMF9uYTFmbl9kR0YyYjJ4aExXaGxjbTguanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Zas9Ak3d9phQJDlDk8mTOFQYANuX1kAyf9T981vwTtUW-VY9O6FARbAnQUnsQD4RK0e1RgASF69IoOyXd5DI7zVcoMcdF6EKgy8A4-14o4DWbP-gUBz-GgStXJGROyOFDk9yTH4AUGeKiDyR5q1UbTmunseR~uFZaLrpqSlVyAESEC1ecMjmgCnJHbx61nspupZ8fu2NEIlby-jO~jwzR66rB~zA3ZQ~Ufe6U~Ga3Yt9HwHHIjW-I8J5vNDOLzD75NkMfA26JcwVJw6V0webI1Irr-TSuXnyMpVijlmuNfo3qYXM1o7b2dWYfc0zHqFXNF7ngb71t2u9dlbt5JiWbA__";
-const FOOD_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/5oFGR4LAiTGjHTW2hskrnb/sandbox/f8dkhDGu6pnjmn6Vw6vZ56-img-2_1772035143000_na1fn_dGF2b2xhLWZvb2QtaGVybw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvNW9GR1I0TEFpVEdqSFRXMmhza3JuYi9zYW5kYm94L2Y4ZGtoREd1NnBuam1uNlZ3NnZaNTYtaW1nLTJfMTc3MjAzNTE0MzAwMF9uYTFmbl9kR0YyYjJ4aExXWnZiMlF0YUdWeWJ3LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=GMdnPosghHus9voX7BIrTlrR-En08XiQeIicFsJRg8SNF5o7SYmi58dw5b7DU5R6SB7~rxiKaQCr2gqJAmwemj5nijFD5sIBAtQHtcT6AX86aqs4ucnaEEct-YTs25ae77hmjtIlQd0wj~iAeSGWRcDdqDaCF2323zr2qULcA4AjE4lqqW6OPBijAqMykfgEMd2iymDNxlyGkK933WcMNAVf5Q6MWtUQroZZJ6o3HSf8DktgsZPmcujiygx8PONmUsIEopWk5mkCjOInX~xJbtB~vIZLybqN2JnieyHNJUoU-N3CqViBCHnDqmc2wb41jfCpPFIGo9pc0xDgD0pr2w__";
-const INTERIOR_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/5oFGR4LAiTGjHTW2hskrnb/sandbox/f8dkhDGu6pnjmn6Vw6vZ56-img-3_1772035128000_na1fn_dGF2b2xhLWludGVyaW9yLWdhbGxlcnk.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvNW9GR1I0TEFpVEdqSFRXMmhza3JuYi9zYW5kYm94L2Y4ZGtoREd1NnBuam1uNlZ3NnZaNTYtaW1nLTNfMTc3MjAzNTEyODAwMF9uYTFmbl9kR0YyYjJ4aExXbHVkR1Z5YVc5eUxXZGhiR3hsY25rLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=D4a3o~ar62~81KEpIV-KBQBqBpkJQhkPlOtKqG-e-b516OnJ1vzxZJZYTAblprgF9Q8KZW~NoBsxf7wZNfYfLbbgLGHqWmrSxM65nKcQCddajUJ4tb9RRPQAkLogGFYQtLC~-UAaO3GGTD04HCpMwnKnxup8yvQmD6JY4ezRp8~SQh8fMD2VzBZ4W3yzQ8AQO-5NsjtYXMPyg1Pz~2ERtRGnGnybkHc5DkEVqf6CNnghIzasYmxCpRFCp5XlOawy1lSi3SBwZBGerUNYAujGDj4ubmMNVgodpx4lDumlHc-3g2uc-Yo8Fan81lIv1rX2sKYRoxrIjmGEbv6id91TcA__";
-const COCKTAIL_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/5oFGR4LAiTGjHTW2hskrnb/sandbox/f8dkhDGu6pnjmn6Vw6vZ56-img-5_1772035136000_na1fn_dGF2b2xhLWNvY2t0YWls.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvNW9GR1I0TEFpVEdqSFRXMmhza3JuYi9zYW5kYm94L2Y4ZGtoREd1NnBuam1uNlZ3NnZaNTYtaW1nLTVfMTc3MjAzNTEzNjAwMF9uYTFmbl9kR0YyYjJ4aExXTnZZMnQwWVdscy5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=N7L6AHGRpIW1FpxY61sRHQ0m30rVQmg-ex2IetHfgIFpLnomrAS3HEoIPmJHJuVnI7d1HlBqbvRMaD5Jw3L3eYRQ1vs~zT6v7gik-5McO0ve2k4Jye0-SKZy65P4DJ8-nD~l0Wu7GAPEtvtnWGQCtRFU13GqPodQYynJqzx~UF6paM8fyCVahgEHTeiG9oZmDsntnEbuN1ySTt6u2Lk74aKQFyRHavrKHbTmbVXM8PArz7zN5dZKbCmiW33LtyXsUlkJlqjauCCeSMxSI9-k9OMfk9xHtDrezO5Aw4r-othl0TZz-dLhzdPC6Q33HUD8LypajcL~iWLkBWELl91Eng__";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.15, duration: 0.8 },
-  }),
+const IMGS = {
+  hero: "/hero-dining.png",
+  tandooriChicken: "/tandoori-chicken.png",
+  chickenBiryani: "/chicken-biryani.png",
+  cocktails: "/cocktails.png",
+  seafood: "/seafood.png",
+  paneerMakhani: "/paneer-makhani.png",
+  chickenTikkaMasala: "/chicken-tikka-masala.png",
+  dessert: "/dessert.png",
+  outdoor: "/outdoor.png",
 };
 
-const menuHighlights = [
-  { name: "Signature Kebabs", desc: "Succulent tandoori preparations with hand-ground spices", icon: "🔥" },
-  { name: "Royal Biryani", desc: "Slow-cooked dum biryani with saffron and premium basmati", icon: "🍚" },
-  { name: "Artisan Cocktails", desc: "Handcrafted cocktails by our expert mixologists", icon: "🍸" },
-  { name: "Fresh Seafood", desc: "Daily catch prepared with coastal flavours and finesse", icon: "🦐" },
+const menuItems = [
+  {
+    name: "Tandoori Chicken",
+    category: "Signature Starter",
+    desc: "Whole chicken marinated in vibrant spiced yoghurt, slow-roasted in our clay tandoor for a smoky, char-grilled finish — served with mint chutney and pickled onions.",
+    price: "₹325",
+    img: IMGS.tandooriChicken,
+    badge: "Chef's Pick",
+  },
+  {
+    name: "Chicken Biryani",
+    category: "Dum Biryani",
+    desc: "Tender chicken pieces layered with fragrant saffron basmati, slow-cooked dum-style in a sealed handi with caramelised onions and whole aromatic spices.",
+    price: "₹310",
+    img: IMGS.chickenBiryani,
+    badge: "Best Seller",
+  },
+  {
+    name: "Tandoori Prawns",
+    category: "Premium Seafood",
+    desc: "Juicy whole prawns marinated in coastal spices and hung curd, char-grilled in the tandoor and served with a zesty mint chutney.",
+    price: "₹675",
+    img: IMGS.seafood,
+    badge: "Premium",
+  },
+  {
+    name: "Paneer Makhani",
+    category: "Veg Main Course",
+    desc: "Soft golden paneer cubes in a velvety butter-tomato sauce, slow-simmered with aromatic spices and finished with fresh cream and dried fenugreek.",
+    price: "₹245",
+    img: IMGS.paneerMakhani,
+    badge: "Must Try",
+  },
 ];
 
-const testimonials = [
-  { name: "Priya M.", text: "The ambiance is absolutely stunning. Best fine dining experience in Kandivali, hands down.", rating: 5 },
-  { name: "Rahul S.", text: "Their kebabs are out of this world. The staff is incredibly courteous and the decor is top-notch.", rating: 5 },
-  { name: "Anita K.", text: "We hosted our anniversary dinner here and it was magical. The private dining setup was perfect.", rating: 5 },
+const reviews = [
+  {
+    name: "Priya Mehta",
+    role: "Food Blogger",
+    text: "The ambiance is absolutely stunning. The kebabs are perfectly spiced — best fine dining experience in Kandivali, hands down.",
+    rating: 5,
+    avatar: "PM",
+  },
+  {
+    name: "Rahul Sharma",
+    role: "Verified Diner",
+    text: "Their biryani is out of this world. The sealed handi presentation alone is theatre. Staff is incredibly courteous.",
+    rating: 5,
+    avatar: "RS",
+  },
+  {
+    name: "Anita Kapoor",
+    role: "Event Planner",
+    text: "We hosted our anniversary dinner here and it was magical. The private dining setup was perfect — couldn't ask for more.",
+    rating: 5,
+    avatar: "AK",
+  },
 ];
+
+const infoItems = [
+  { icon: MapPin, text: "Kandivali East, Mumbai" },
+  { icon: Clock, text: "12 PM – 1:30 AM Daily" },
+  { icon: Utensils, text: "Multi-Cuisine Fine Dining" },
+  { icon: Star, text: "4.1★ on Zomato", fill: true },
+];
+
+const galleryImages = [
+  { src: IMGS.hero, alt: "Tavola main dining hall", className: "col-span-2 row-span-2" },
+  { src: IMGS.paneerMakhani, alt: "Paneer Makhani" },
+  { src: IMGS.cocktails, alt: "Signature cocktails", className: "row-span-2" },
+  { src: IMGS.outdoor, alt: "Vibrant outdoor seating", className: "col-span-2" },
+  { src: IMGS.dessert, alt: "Gulab Jamun dessert" },
+];
+
+// Subtle parallax hero image
+function ParallaxHero() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 600], [0, 120]);
+  return (
+    <motion.div ref={ref} style={{ y }} className="absolute inset-0">
+      <img src={IMGS.hero} alt="Tavola fine dining" className="w-full h-full object-cover scale-110" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[#0a0a0a]" />
+    </motion.div>
+  );
+}
+
+// Animated scroll indicator
+function ScrollIndicator() {
+  return (
+    <motion.div
+      className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      animate={{ y: [0, 8, 0] }}
+      transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
+    >
+      <span className="font-[Cormorant_Garamond] text-xs text-gold/50 tracking-[0.3em] uppercase">Scroll</span>
+      <ChevronDown size={16} className="text-gold/50" />
+    </motion.div>
+  );
+}
+
+// Gold progress line
+function ScrollProgressLine() {
+  const { scrollYProgress } = useScroll();
+  const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  return (
+    <div className="fixed left-0 top-0 bottom-0 w-[2px] bg-gold/10 z-40 hidden lg:block">
+      <motion.div style={{ height }} className="w-full bg-gradient-to-b from-gold/20 via-gold to-gold/20" />
+    </div>
+  );
+}
+
+// Review Card
+function ReviewCard({ review, i }: { review: typeof reviews[0]; i: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: i * 0.15, duration: 0.7 }}
+      className="relative bg-[#111] border border-gold/10 p-8 hover:border-gold/30 transition-all duration-500 group"
+    >
+      <Quote size={32} className="text-gold/15 mb-4" />
+      <div className="flex gap-1 mb-4">
+        {Array.from({ length: review.rating }).map((_, j) => (
+          <Star key={j} size={14} className="text-gold fill-gold" />
+        ))}
+      </div>
+      <p className="font-[Cormorant_Garamond] text-ivory/70 text-lg italic leading-relaxed mb-6">
+        "{review.text}"
+      </p>
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center">
+          <span className="font-[Playfair_Display] text-gold text-xs font-bold">{review.avatar}</span>
+        </div>
+        <div>
+          <p className="font-[Lato] text-ivory text-sm font-semibold tracking-wide">{review.name}</p>
+          <p className="font-[Lato] text-ivory/40 text-xs uppercase tracking-widest">{review.role}</p>
+        </div>
+      </div>
+      {/* Decorative corner */}
+      <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-gold/20 group-hover:border-gold/50 transition-colors duration-500" />
+    </motion.div>
+  );
+}
 
 export default function Home() {
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = IMGS.hero;
+    img.onload = () => setHeroLoaded(true);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0a0a0a] overflow-x-hidden">
+      <ScrollProgressLine />
       <Navbar />
 
-      {/* Hero */}
+      {/* ── HERO ─────────────────────────────── */}
       <section className="relative h-screen overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={HERO_IMG}
-            alt="Tavola Fine Dining Interior"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
-        </div>
+        <ParallaxHero />
+
+        {/* Animated grain overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="mb-6"
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: heroLoaded ? 1 : 0, y: heroLoaded ? 0 : -16 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="mb-5 flex items-center gap-3"
           >
-            <span className="font-[Cormorant_Garamond] text-gold/80 text-lg sm:text-xl tracking-[0.3em] uppercase">
+            <div className="h-px w-10 bg-gold/50" />
+            <span className="font-[Cormorant_Garamond] text-gold/90 text-base sm:text-lg tracking-[0.35em] uppercase">
               Kandivali's Finest
             </span>
+            <div className="h-px w-10 bg-gold/50" />
           </motion.div>
+
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="font-[Playfair_Display] text-5xl sm:text-7xl lg:text-8xl font-bold text-white leading-tight"
+            initial={{ opacity: 0, y: 36 }}
+            animate={{ opacity: heroLoaded ? 1 : 0, y: heroLoaded ? 0 : 36 }}
+            transition={{ duration: 1, delay: 0.45 }}
+            className="font-[Playfair_Display] text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[1.05] tracking-tight"
           >
-            Where Every Meal<br />
-            <span className="text-gold italic">Becomes a Memory</span>
+            Where Every Meal
+            <br />
+            <span className="text-gold italic drop-shadow-[0_2px_30px_rgba(201,169,110,0.4)]">
+              Becomes a Memory
+            </span>
           </motion.h1>
+
           <motion.p
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="mt-6 font-[Lato] text-ivory/70 text-lg sm:text-xl max-w-2xl leading-relaxed"
+            animate={{ opacity: heroLoaded ? 1 : 0 }}
+            transition={{ duration: 1, delay: 0.75 }}
+            className="mt-6 font-[Cormorant_Garamond] text-ivory/60 text-xl sm:text-2xl max-w-2xl leading-relaxed"
           >
-            Premium multi-cuisine fine dining with exquisite ambiance, handcrafted cocktails, and an unforgettable culinary journey in the heart of Mumbai.
+            Premium multi-cuisine fine dining — from tandoor kebabs to coastal seafood, handcrafted cocktails, and an unforgettable culinary journey in the heart of Mumbai.
           </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
+            animate={{ opacity: heroLoaded ? 1 : 0, y: heroLoaded ? 0 : 20 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
             className="mt-10 flex flex-col sm:flex-row gap-4"
           >
             <a
               href="https://wa.me/919930969640?text=Hi%20Tavola!%20I'd%20like%20to%20make%20a%20reservation."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-10 py-4 bg-gold text-charcoal font-[Lato] font-bold uppercase tracking-[0.15em] text-sm hover:bg-gold-light transition-all duration-300"
+              className="group relative px-10 py-4 bg-gold text-[#0a0a0a] font-[Lato] font-bold uppercase tracking-[0.18em] text-sm overflow-hidden"
             >
-              Reserve Your Table
+              <span className="relative z-10">Reserve Your Table</span>
+              <motion.div
+                className="absolute inset-0 bg-white/20"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ duration: 0.5 }}
+              />
             </a>
             <Link href="/menu">
-              <span className="px-10 py-4 border border-gold/50 text-gold font-[Lato] uppercase tracking-[0.15em] text-sm hover:bg-gold/10 transition-all duration-300 inline-block">
+              <span className="px-10 py-4 border border-gold/40 text-gold font-[Lato] uppercase tracking-[0.18em] text-sm hover:bg-gold/10 hover:border-gold/70 transition-all duration-300 inline-block">
                 Explore Menu
               </span>
             </Link>
           </motion.div>
+
+          {/* Rating badges */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: heroLoaded ? 1 : 0 }}
+            transition={{ duration: 1, delay: 1.3 }}
+            className="mt-12 flex gap-6"
+          >
+            <div className="flex flex-col items-center">
+              <span className="font-[Playfair_Display] text-2xl font-bold text-gold">3.9★</span>
+              <span className="font-[Lato] text-ivory/40 text-xs tracking-widest uppercase">Dining</span>
+            </div>
+            <div className="w-px bg-gold/20" />
+            <div className="flex flex-col items-center">
+              <span className="font-[Playfair_Display] text-2xl font-bold text-gold">4.1★</span>
+              <span className="font-[Lato] text-ivory/40 text-xs tracking-widest uppercase">Delivery</span>
+            </div>
+            <div className="w-px bg-gold/20" />
+            <div className="flex flex-col items-center">
+              <span className="font-[Playfair_Display] text-2xl font-bold text-gold">1000+</span>
+              <span className="font-[Lato] text-ivory/40 text-xs tracking-widest uppercase">Reviews</span>
+            </div>
+          </motion.div>
         </div>
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-        >
-          <div className="w-6 h-10 border-2 border-gold/40 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-gold/60 rounded-full" />
-          </div>
-        </motion.div>
+
+        <ScrollIndicator />
       </section>
 
-      {/* Info Strip */}
-      <section className="bg-charcoal-light border-y border-gold/10">
-        <div className="max-w-7xl mx-auto px-4 py-6 flex flex-wrap items-center justify-center gap-8 sm:gap-16">
-          <div className="flex items-center gap-3 text-ivory/60">
-            <MapPin size={18} className="text-gold" />
-            <span className="font-[Lato] text-sm tracking-wide">Kandivali East, Mumbai</span>
-          </div>
-          <div className="flex items-center gap-3 text-ivory/60">
-            <Clock size={18} className="text-gold" />
-            <span className="font-[Lato] text-sm tracking-wide">12 PM – 1:30 AM Daily</span>
-          </div>
-          <div className="flex items-center gap-3 text-ivory/60">
-            <Utensils size={18} className="text-gold" />
-            <span className="font-[Lato] text-sm tracking-wide">Multi-Cuisine Fine Dining</span>
-          </div>
-          <div className="flex items-center gap-2 text-ivory/60">
-            <Star size={18} className="text-gold fill-gold" />
-            <span className="font-[Lato] text-sm tracking-wide">4.1 on Zomato</span>
-          </div>
-        </div>
-      </section>
-
-      {/* About Teaser */}
-      <section className="py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      {/* ── INFO STRIP ───────────────────────── */}
+      <section className="bg-[#0f0f0f] border-y border-gold/10">
+        <div className="max-w-7xl mx-auto px-4 py-5 flex flex-wrap items-center justify-center gap-6 sm:gap-16">
+          {infoItems.map(({ icon: Icon, text, fill }, i) => (
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              className="space-y-8"
+              key={text}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="flex items-center gap-2.5 text-ivory/50"
             >
-              <motion.span
-                custom={0}
-                variants={fadeUp}
-                className="font-[Cormorant_Garamond] text-gold/70 text-lg tracking-[0.2em] uppercase"
-              >
-                Our Story
-              </motion.span>
-              <motion.h2
-                custom={1}
-                variants={fadeUp}
-                className="font-[Playfair_Display] text-4xl sm:text-5xl font-bold text-ivory leading-tight"
-              >
+              <Icon size={16} className={`text-gold ${fill ? "fill-gold" : ""}`} />
+              <span className="font-[Lato] text-sm tracking-wide">{text}</span>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── ABOUT TEASER ─────────────────────── */}
+      <section className="py-28 sm:py-36">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            {/* Text */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9 }}
+              className="space-y-7"
+            >
+              <div className="flex items-center gap-3">
+                <div className="h-px w-10 bg-gold/50" />
+                <span className="font-[Cormorant_Garamond] text-gold/70 text-base tracking-[0.25em] uppercase">
+                  Our Story
+                </span>
+              </div>
+              <h2 className="font-[Playfair_Display] text-4xl sm:text-5xl lg:text-6xl font-bold text-ivory leading-[1.1]">
                 A Legacy of<br />
                 <span className="text-gold italic">Culinary Excellence</span>
-              </motion.h2>
-              <motion.p
-                custom={2}
-                variants={fadeUp}
-                className="font-[Lato] text-ivory/60 text-lg leading-relaxed"
-              >
-                Tavola has been a cornerstone of fine dining in Kandivali, offering an unparalleled culinary experience that blends the rich traditions of North Indian, Chinese, Italian, and seafood cuisines. Our chefs craft each dish with passion, using only the freshest ingredients and time-honoured techniques.
-              </motion.p>
-              <motion.p
-                custom={3}
-                variants={fadeUp}
-                className="font-[Lato] text-ivory/60 text-lg leading-relaxed"
-              >
-                Step into our elegantly designed space — where warm lighting, plush seating, and impeccable service create the perfect setting for celebrations, intimate dinners, and memorable gatherings.
-              </motion.p>
-              <motion.div custom={4} variants={fadeUp}>
-                <Link href="/about">
-                  <span className="inline-flex items-center gap-2 font-[Cormorant_Garamond] text-gold text-lg uppercase tracking-[0.15em] hover:gap-4 transition-all duration-300">
-                    Discover Our Story <ArrowRight size={18} />
-                  </span>
-                </Link>
-              </motion.div>
+              </h2>
+              <p className="font-[Lato] text-ivory/55 text-lg leading-relaxed">
+                Tavola has been a cornerstone of fine dining in Kandivali, offering an unparalleled culinary experience that blends the rich traditions of North Indian, Chinese, seafood, and continental cuisines. Our chefs craft each dish with passion, using only the freshest ingredients and time-honoured techniques.
+              </p>
+              <p className="font-[Lato] text-ivory/55 text-lg leading-relaxed">
+                Step into our elegantly designed space — where warm chandelier lighting, plush seating, and impeccable service create the perfect setting for celebrations, intimate dinners, and memorable gatherings.
+              </p>
+
+              {/* Stats */}
+              <div className="flex gap-10 pt-4">
+                {[["10+", "Years"], ["50+", "Dishes"], ["1000+", "Happy Guests"]].map(([num, label]) => (
+                  <div key={label}>
+                    <p className="font-[Playfair_Display] text-3xl font-bold text-gold">{num}</p>
+                    <p className="font-[Lato] text-ivory/40 text-xs uppercase tracking-widest mt-1">{label}</p>
+                  </div>
+                ))}
+              </div>
+
+              <Link href="/about">
+                <span className="inline-flex items-center gap-2 font-[Cormorant_Garamond] text-gold text-xl uppercase tracking-[0.18em] hover:gap-4 transition-all duration-300 group mt-2">
+                  Discover Our Story
+                  <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                </span>
+              </Link>
             </motion.div>
+
+            {/* Image */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.93 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1 }}
               className="relative"
             >
               <div className="aspect-[4/5] overflow-hidden">
                 <img
-                  src={COCKTAIL_IMG}
-                  alt="Artisan cocktail at Tavola"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  src={IMGS.cocktails}
+                  alt="Signature cocktails at Tavola"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-[800ms]"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 bg-gold p-6 sm:p-8">
-                <p className="font-[Playfair_Display] text-charcoal text-3xl font-bold">10+</p>
-                <p className="font-[Lato] text-charcoal/80 text-sm uppercase tracking-wider">Years of Excellence</p>
+              {/* Gold accent box */}
+              <div className="absolute -bottom-8 -left-8 bg-gold p-7 sm:p-9 shadow-2xl">
+                <p className="font-[Playfair_Display] text-[#0a0a0a] text-4xl font-bold">₹1400</p>
+                <p className="font-[Lato] text-[#0a0a0a]/75 text-xs uppercase tracking-wider mt-1">Cost for Two</p>
               </div>
+              {/* Decorative border */}
+              <div className="absolute -top-4 -right-4 w-full h-full border border-gold/20 pointer-events-none" />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Menu Highlights */}
-      <section className="py-24 sm:py-32 bg-charcoal-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="text-center mb-16"
-          >
-            <motion.span
-              custom={0}
-              variants={fadeUp}
-              className="font-[Cormorant_Garamond] text-gold/70 text-lg tracking-[0.2em] uppercase"
+      {/* ── MENU HIGHLIGHTS ──────────────────── */}
+      <section className="py-28 sm:py-36 bg-[#080808]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+          {/* Header */}
+          <div className="text-center mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="flex items-center justify-center gap-4 mb-5"
             >
-              Our Specialities
-            </motion.span>
+              <div className="h-px w-16 bg-gold/30" />
+              <span className="font-[Cormorant_Garamond] text-gold/60 text-base tracking-[0.3em] uppercase">
+                Our Specialities
+              </span>
+              <div className="h-px w-16 bg-gold/30" />
+            </motion.div>
             <motion.h2
-              custom={1}
-              variants={fadeUp}
-              className="font-[Playfair_Display] text-4xl sm:text-5xl font-bold text-ivory mt-4"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="font-[Playfair_Display] text-4xl sm:text-5xl lg:text-6xl font-bold text-ivory"
             >
               Culinary <span className="text-gold italic">Masterpieces</span>
             </motion.h2>
-          </motion.div>
+          </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {menuHighlights.map((item, i) => (
+          {/* Menu Cards */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {menuItems.map((item, i) => (
               <motion.div
                 key={item.name}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-                className="group bg-charcoal border border-gold/10 p-8 hover:border-gold/30 transition-all duration-500"
+                transition={{ delay: i * 0.12, duration: 0.7 }}
+                className="group bg-[#0f0f0f] border border-gold/10 hover:border-gold/30 overflow-hidden hover:shadow-[0_0_40px_rgba(201,169,110,0.08)] transition-all duration-500"
               >
-                <span className="text-4xl mb-4 block">{item.icon}</span>
-                <h3 className="font-[Playfair_Display] text-xl text-ivory font-semibold mb-3">
-                  {item.name}
-                </h3>
-                <p className="font-[Lato] text-ivory/50 text-sm leading-relaxed">
-                  {item.desc}
-                </p>
+                {/* Image */}
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent" />
+                  {/* Badge */}
+                  <span className="absolute top-4 right-4 px-3 py-1 bg-gold text-[#0a0a0a] font-[Lato] text-xs font-bold uppercase tracking-wider">
+                    {item.badge}
+                  </span>
+                </div>
+
+                <div className="p-6">
+                  <p className="font-[Cormorant_Garamond] text-gold/60 text-sm uppercase tracking-[0.2em] mb-2">
+                    {item.category}
+                  </p>
+                  <h3 className="font-[Playfair_Display] text-xl text-ivory font-semibold mb-3 leading-tight">
+                    {item.name}
+                  </h3>
+                  <p className="font-[Lato] text-ivory/45 text-sm leading-relaxed mb-4">
+                    {item.desc}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="font-[Playfair_Display] text-gold text-xl font-bold">{item.price}</span>
+                    <span className="font-[Lato] text-ivory/30 text-xs uppercase tracking-wider">onwards</span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -249,102 +449,119 @@ export default function Home() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-center mt-12"
+            className="text-center mt-14"
           >
             <Link href="/menu">
-              <span className="inline-flex items-center gap-2 px-10 py-4 border border-gold/40 text-gold font-[Lato] uppercase tracking-[0.15em] text-sm hover:bg-gold/10 transition-all duration-300">
-                View Full Menu <ArrowRight size={16} />
+              <span className="inline-flex items-center gap-3 px-12 py-4 border border-gold/40 text-gold font-[Lato] uppercase tracking-[0.18em] text-sm hover:bg-gold/10 hover:border-gold/70 transition-all duration-300 group">
+                View Full Menu
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </span>
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* Food Showcase */}
-      <section className="relative py-0">
-        <div className="relative h-[70vh] overflow-hidden">
-          <img
-            src={FOOD_IMG}
-            alt="Tavola signature dishes"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-          <div className="absolute inset-0 flex items-center">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="max-w-lg"
-              >
-                <span className="font-[Cormorant_Garamond] text-gold/80 text-lg tracking-[0.2em] uppercase">
+      {/* ── FOOD SHOWCASE BANNER ─────────────── */}
+      <section className="relative h-[85vh] overflow-hidden">
+        <img
+          src={IMGS.chickenBiryani}
+          alt="Tavola signature biryani"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/90 via-[#0a0a0a]/60 to-transparent" />
+
+        <div className="relative z-10 h-full flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 w-full">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9 }}
+              className="max-w-xl"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="h-px w-10 bg-gold/50" />
+                <span className="font-[Cormorant_Garamond] text-gold/80 text-base tracking-[0.3em] uppercase">
                   A Feast for the Senses
                 </span>
-                <h2 className="font-[Playfair_Display] text-4xl sm:text-5xl font-bold text-white mt-4 leading-tight">
-                  Crafted with <span className="text-gold italic">Passion</span>
-                </h2>
-                <p className="font-[Lato] text-ivory/70 text-lg mt-6 leading-relaxed">
-                  From the smoky depths of our tandoor to the delicate art of our desserts, every dish at Tavola tells a story of culinary mastery.
-                </p>
-                <div className="mt-8">
-                  <a
-                    href="https://wa.me/919930969640?text=Hi%20Tavola!%20I'd%20like%20to%20make%20a%20reservation."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-10 py-4 bg-gold text-charcoal font-[Lato] font-bold uppercase tracking-[0.15em] text-sm hover:bg-gold-light transition-all duration-300"
-                  >
-                    Book Your Experience
-                  </a>
-                </div>
-              </motion.div>
-            </div>
+              </div>
+              <h2 className="font-[Playfair_Display] text-5xl sm:text-6xl font-bold text-white leading-tight mb-6">
+                Crafted with<br />
+                <span className="text-gold italic">Passion & Precision</span>
+              </h2>
+              <p className="font-[Lato] text-ivory/65 text-lg leading-relaxed mb-10">
+                From the smoky depths of our tandoor to the hand-sealed biryani handi — every dish at Tavola tells a story of culinary mastery. Ingredients sourced fresh daily. Flavours engineered for memory.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="https://wa.me/919930969640?text=Hi%20Tavola!%20I'd%20like%20to%20make%20a%20reservation."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-10 py-4 bg-gold text-[#0a0a0a] font-[Lato] font-bold uppercase tracking-[0.18em] text-sm hover:bg-gold-light transition-all duration-300 text-center"
+                >
+                  Book Your Experience
+                </a>
+                <a
+                  href="tel:+912228843318"
+                  className="px-10 py-4 border border-white/20 text-white font-[Lato] uppercase tracking-[0.18em] text-sm hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <Phone size={14} /> Call to Reserve
+                </a>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Gallery Teaser */}
-      <section className="py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="text-center mb-16"
-          >
-            <motion.span
-              custom={0}
-              variants={fadeUp}
-              className="font-[Cormorant_Garamond] text-gold/70 text-lg tracking-[0.2em] uppercase"
+      {/* ── GALLERY TEASER ───────────────────── */}
+      <section className="py-28 sm:py-36">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="flex items-center justify-center gap-4 mb-5"
             >
-              Visual Journey
-            </motion.span>
+              <div className="h-px w-16 bg-gold/30" />
+              <span className="font-[Cormorant_Garamond] text-gold/60 text-base tracking-[0.3em] uppercase">
+                Visual Journey
+              </span>
+              <div className="h-px w-16 bg-gold/30" />
+            </motion.div>
             <motion.h2
-              custom={1}
-              variants={fadeUp}
-              className="font-[Playfair_Display] text-4xl sm:text-5xl font-bold text-ivory mt-4"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="font-[Playfair_Display] text-4xl sm:text-5xl lg:text-6xl font-bold text-ivory"
             >
               Step Inside <span className="text-gold italic">Tavola</span>
             </motion.h2>
-          </motion.div>
+          </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {[HERO_IMG, INTERIOR_IMG, FOOD_IMG].map((img, i) => (
+          {/* Masonry-style grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 auto-rows-[180px] sm:auto-rows-[220px]">
+            {galleryImages.map((img, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.93 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.6 }}
-                className={`overflow-hidden ${i === 0 ? "col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className={`overflow-hidden group relative cursor-pointer ${img.className || ""}`}
               >
                 <img
-                  src={img}
-                  alt={`Tavola gallery ${i + 1}`}
-                  className={`w-full object-cover hover:scale-105 transition-transform duration-700 ${
-                    i === 0 ? "h-64 sm:h-80 lg:h-full" : "h-48 sm:h-64"
-                  }`}
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500 flex items-center justify-center">
+                  <span className="font-[Cormorant_Garamond] text-white text-sm uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    {img.alt}
+                  </span>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -356,117 +573,212 @@ export default function Home() {
             className="text-center mt-12"
           >
             <Link href="/gallery">
-              <span className="inline-flex items-center gap-2 font-[Cormorant_Garamond] text-gold text-lg uppercase tracking-[0.15em] hover:gap-4 transition-all duration-300">
-                View Full Gallery <ArrowRight size={18} />
+              <span className="inline-flex items-center gap-2 font-[Cormorant_Garamond] text-gold text-xl uppercase tracking-[0.18em] hover:gap-4 transition-all duration-300 group">
+                View Full Gallery
+                <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
               </span>
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 sm:py-32 bg-charcoal-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="text-center mb-16"
-          >
-            <motion.span
-              custom={0}
-              variants={fadeUp}
-              className="font-[Cormorant_Garamond] text-gold/70 text-lg tracking-[0.2em] uppercase"
+      {/* ── REVIEWS ──────────────────────────── */}
+      <section className="py-28 sm:py-36 bg-[#080808]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+          <div className="text-center mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center justify-center gap-4 mb-5"
             >
-              Guest Reviews
-            </motion.span>
+              <div className="h-px w-16 bg-gold/30" />
+              <span className="font-[Cormorant_Garamond] text-gold/60 text-base tracking-[0.3em] uppercase">
+                Guest Reviews
+              </span>
+              <div className="h-px w-16 bg-gold/30" />
+            </motion.div>
             <motion.h2
-              custom={1}
-              variants={fadeUp}
-              className="font-[Playfair_Display] text-4xl sm:text-5xl font-bold text-ivory mt-4"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="font-[Playfair_Display] text-4xl sm:text-5xl lg:text-6xl font-bold text-ivory"
             >
               What Our Guests <span className="text-gold italic">Say</span>
             </motion.h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.6 }}
-                className="bg-charcoal border border-gold/10 p-8"
-              >
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} size={16} className="text-gold fill-gold" />
-                  ))}
-                </div>
-                <p className="font-[Cormorant_Garamond] text-ivory/70 text-lg italic leading-relaxed mb-6">
-                  "{t.text}"
-                </p>
-                <p className="font-[Lato] text-gold text-sm uppercase tracking-wider">
-                  {t.name}
-                </p>
-              </motion.div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {reviews.map((r, i) => (
+              <ReviewCard key={r.name} review={r} i={i} />
             ))}
           </div>
+
+          {/* Zomato CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-14"
+          >
+            <a
+              href="https://www.zomato.com/mumbai/tavola-kandivali-east"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 font-[Lato] text-ivory/40 text-sm tracking-wider hover:text-gold transition-colors"
+            >
+              <Star size={14} className="text-gold fill-gold" />
+              See all 304 dining reviews on Zomato
+              <ArrowRight size={14} />
+            </a>
+          </motion.div>
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="relative py-24 sm:py-32 overflow-hidden">
+      {/* ── CTA BANNER ───────────────────────── */}
+      <section className="relative py-32 sm:py-40 overflow-hidden">
         <div className="absolute inset-0">
-          <img
-            src={INTERIOR_IMG}
-            alt="Tavola private dining"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/70" />
+          <img src={IMGS.outdoor} alt="Tavola outdoor dining" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0a0a0a]/80" />
+          {/* Gold vignette */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,169,110,0.06)_0%,transparent_70%)]" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.h2
-              custom={0}
-              variants={fadeUp}
-              className="font-[Playfair_Display] text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
-            >
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="h-px w-16 bg-gold/30" />
+              <span className="font-[Cormorant_Garamond] text-gold/60 text-base tracking-[0.3em] uppercase">
+                Reservations
+              </span>
+              <div className="h-px w-16 bg-gold/30" />
+            </div>
+            <h2 className="font-[Playfair_Display] text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
               Your Table <span className="text-gold italic">Awaits</span>
-            </motion.h2>
-            <motion.p
-              custom={1}
-              variants={fadeUp}
-              className="font-[Lato] text-ivory/70 text-lg mt-6 max-w-2xl mx-auto leading-relaxed"
-            >
-              Whether it's a romantic dinner, a family celebration, or a corporate gathering — Tavola is the perfect setting for your next unforgettable evening.
-            </motion.p>
-            <motion.div
-              custom={2}
-              variants={fadeUp}
-              className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
-            >
+            </h2>
+            <p className="font-[Cormorant_Garamond] text-ivory/65 text-2xl mt-4 max-w-2xl mx-auto leading-relaxed mb-10">
+              Whether it's a romantic dinner, a family celebration, or a grand corporate gathering — Tavola is the perfect setting for your next unforgettable evening.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="https://wa.me/919930969640?text=Hi%20Tavola!%20I'd%20like%20to%20make%20a%20reservation."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-10 py-4 bg-gold text-charcoal font-[Lato] font-bold uppercase tracking-[0.15em] text-sm hover:bg-gold-light transition-all duration-300"
+                className="px-12 py-5 bg-gold text-[#0a0a0a] font-[Lato] font-bold uppercase tracking-[0.18em] text-sm hover:bg-gold-light transition-all duration-300"
               >
                 Reserve via WhatsApp
               </a>
               <a
-                href="tel:+919930969640"
-                className="px-10 py-4 border border-gold/50 text-gold font-[Lato] uppercase tracking-[0.15em] text-sm hover:bg-gold/10 transition-all duration-300"
+                href="tel:+912228843318"
+                className="px-12 py-5 border border-gold/40 text-gold font-[Lato] uppercase tracking-[0.18em] text-sm hover:bg-gold/10 transition-all duration-300 flex items-center justify-center gap-2"
               >
-                Call +91 99309 69640
+                <Phone size={14} />
+                Call +91 22 2884 3318
               </a>
-            </motion.div>
+            </div>
+
+            {/* Hours quick info */}
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
+              <div>
+                <p className="font-[Lato] text-ivory/30 text-xs uppercase tracking-widest mb-1">Open Daily</p>
+                <p className="font-[Cormorant_Garamond] text-ivory/70 text-lg">12:00 PM – 1:30 AM</p>
+              </div>
+              <div className="w-px h-10 bg-gold/20 hidden sm:block" />
+              <div>
+                <p className="font-[Lato] text-ivory/30 text-xs uppercase tracking-widest mb-1">Every Day</p>
+                <p className="font-[Cormorant_Garamond] text-ivory/70 text-lg">Mon – Sun</p>
+              </div>
+            </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ── LOCATION MAP ─────────────────────── */}
+      <section className="py-20 bg-[#0a0a0a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="h-px w-10 bg-gold/50" />
+                <span className="font-[Cormorant_Garamond] text-gold/60 text-base tracking-[0.25em] uppercase">
+                  Find Us
+                </span>
+              </div>
+              <h2 className="font-[Playfair_Display] text-4xl sm:text-5xl font-bold text-ivory mb-6">
+                Visit <span className="text-gold italic">Tavola</span>
+              </h2>
+              <div className="space-y-5">
+                <div className="flex items-start gap-4">
+                  <MapPin size={18} className="text-gold mt-1 shrink-0" />
+                  <div>
+                    <p className="font-[Lato] text-ivory/70 leading-relaxed">
+                      Gokul Nagari 2 CHS, B Wing, Thakur Village,<br />
+                      Near Sai Star Hathway Cable, Western Express Highway,<br />
+                      Kandivali East, Mumbai – 400101
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Clock size={18} className="text-gold shrink-0" />
+                  <p className="font-[Lato] text-ivory/70">Mon–Sun: 12:00 PM – 1:30 AM</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Phone size={18} className="text-gold shrink-0" />
+                  <a href="tel:+912228843318" className="font-[Lato] text-ivory/70 hover:text-gold transition-colors">
+                    +91 22 2884 3318
+                  </a>
+                </div>
+              </div>
+              <div className="mt-8 flex gap-4">
+                <a
+                  href="https://maps.google.com/?q=Gokul+Nagari+2+CHS+Thakur+Village+Kandivali+East+Mumbai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3.5 bg-gold text-[#0a0a0a] font-[Lato] font-bold uppercase tracking-[0.15em] text-xs hover:bg-gold-light transition-all"
+                >
+                  Get Directions
+                </a>
+                <a
+                  href="https://wa.me/919930969640"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3.5 border border-gold/40 text-gold font-[Lato] uppercase tracking-[0.15em] text-xs hover:bg-gold/10 transition-all"
+                >
+                  WhatsApp Us
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative h-[360px] sm:h-[440px] overflow-hidden border border-gold/10"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.127!2d72.8622!3d19.2063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b7d0d7826661%3A0x12345!2sGokul+Nagari+2+CHS%2C+Thakur+Village%2C+Kandivali+East%2C+Mumbai!5e0!3m2!1sen!2sin!4v1"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: "grayscale(100%) invert(92%) hue-rotate(180deg) brightness(0.8)" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Tavola Location"
+              />
+              {/* Pin overlay */}
+              <div className="absolute inset-0 pointer-events-none border-2 border-gold/10" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
