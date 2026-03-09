@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
 
-const CATERING_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/5oFGR4LAiTGjHTW2hskrnb/sandbox/f8dkhDGu6pnjmn6Vw6vZ56-img-4_1772035134000_na1fn_dGF2b2xhLWNhdGVyaW5n.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvNW9GR1I0TEFpVEdqSFRXMmhza3JuYi9zYW5kYm94L2Y4ZGtoREd1NnBuam1uNlZ3NnZaNTYtaW1nLTRfMTc3MjAzNTEzNDAwMF9uYTFmbl9kR0YyYjJ4aExXTmhkR1Z5YVc1bi5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=oBbsl2Dbh3~pqCTOvGnrq1la9v4PnX1r25L8mZa0Ed84XsORiqpiBwwrONnymLEC7Ui785CkMUvSeTsZ9K9pIAU8MGuqsKmfrP6YZttao5bcVOML8NBacNm5ICugzBU6wmRsBoi8wtc7qB-O~k33h5NjGjJMS3YBt67g3c3ALnx2UpcWiNay3v34tR3KGWnASVIkZrLhBk2oahhHLniysu7tBQuuhAN586trVhdtyRaHlIGu01A0pwLz8xavEjmH7z1B34hwdcrzmUZxjaY7zgtQoODzWvEFM5HsdIllsHS91ek5gf2NcYJ5dbhjWov8VM1jsC9rYocEy1nunExZww__";
+const CATERING_IMG = "/tavola-outdoor-enhanced.png";
 
 const packages = [
   {
@@ -45,13 +45,13 @@ export default function Catering() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0a0a0a]">
       <Navbar />
 
       {/* Hero */}
       <section className="relative h-[50vh] overflow-hidden">
         <img src={CATERING_IMG} alt="Tavola Catering" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0a0a0a]" />
         <div className="absolute inset-0 flex items-center justify-center text-center">
           <div>
             <motion.span
