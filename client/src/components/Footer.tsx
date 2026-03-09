@@ -8,15 +8,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center mb-4">
               <img
-                src="/tavola.png"
+                src="/tavola_2_transparent.png"
                 alt="Tavola Logo"
-                className="h-10 w-auto max-w-[100px] object-contain drop-shadow-[0_0_8px_rgba(201,169,110,0.3)]"
+                className="h-12 w-auto max-w-[180px] object-contain drop-shadow-[0_2px_12px_rgba(201,169,110,0.45)]"
               />
-              <h3 className="font-[Playfair_Display] text-3xl font-bold text-gold">
-                TAVOLA
-              </h3>
             </div>
             <p className="font-[Cormorant_Garamond] text-lg text-ivory/60 leading-relaxed">
               Kandivali's premier fine dining destination. Where every meal becomes a memory.

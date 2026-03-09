@@ -100,9 +100,9 @@ export default function Contact() {
                   <Mail size={24} className="text-gold shrink-0 mt-1" />
                   <div>
                     <h3 className="font-[Playfair_Display] text-lg text-ivory font-semibold">Email</h3>
-                    <p className="font-[Lato] text-ivory/50 text-sm mt-1">
+                    <a href="mailto:info@tavolamumbai.com" className="font-[Lato] text-ivory/50 text-sm mt-1 block hover:text-gold transition-colors">
                       info@tavolamumbai.com
-                    </p>
+                    </a>
                   </div>
                 </div>
               </div>

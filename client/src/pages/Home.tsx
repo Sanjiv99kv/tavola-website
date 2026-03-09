@@ -87,8 +87,8 @@ const infoItems = [
 const galleryImages = [
   { src: IMGS.hero, alt: "Tavola main dining hall", className: "col-span-2 row-span-2" },
   { src: IMGS.ambience, alt: "Private celebrations at Tavola" },
-  { src: IMGS.outdoor, alt: "Vibrant outdoor seating", className: "row-span-2" },
-  { src: IMGS.cocktails, alt: "Signature cocktails", className: "col-span-2" },
+  { src: IMGS.outdoor, alt: "Vibrant outdoor seating" },
+  { src: IMGS.cocktails, alt: "Signature cocktails" },
   { src: IMGS.paneerMakhani, alt: "Paneer Makhani" },
 ];
 
@@ -503,7 +503,7 @@ export default function Home() {
                   Book Your Experience
                 </a>
                 <a
-                  href="tel:+912228843318"
+                  href="tel:+919930969640"
                   className="px-10 py-4 border border-white/20 text-white font-[Lato] uppercase tracking-[0.18em] text-sm hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <Phone size={14} /> Call to Reserve
@@ -674,11 +674,11 @@ export default function Home() {
                 Reserve via WhatsApp
               </a>
               <a
-                href="tel:+912228843318"
+                href="tel:+919930969640"
                 className="px-12 py-5 border border-gold/40 text-gold font-[Lato] uppercase tracking-[0.18em] text-sm hover:bg-gold/10 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <Phone size={14} />
-                Call +91 22 2884 3318
+                Call +91 99309 69640
               </a>
             </div>
 
@@ -734,8 +734,8 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone size={18} className="text-gold shrink-0" />
-                  <a href="tel:+912228843318" className="font-[Lato] text-ivory/70 hover:text-gold transition-colors">
-                    +91 22 2884 3318
+                  <a href="tel:+919930969640" className="font-[Lato] text-ivory/70 hover:text-gold transition-colors">
+                    +91 99309 69640
                   </a>
                 </div>
               </div>

@@ -41,17 +41,14 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/">
             <motion.div
-              className="flex items-center gap-2.5"
+              className="flex items-center"
               whileHover={{ scale: 1.02 }}
             >
               <img
-                src="/tavola.png"
+                src="/tavola_2_transparent.png"
                 alt="Tavola Logo"
-                className="h-10 w-auto max-w-[120px] object-contain drop-shadow-[0_0_8px_rgba(201,169,110,0.3)]"
+                className="h-12 w-auto max-w-[180px] object-contain drop-shadow-[0_2px_12px_rgba(201,169,110,0.45)]"
               />
-              <span className="font-[Playfair_Display] text-2xl sm:text-3xl font-bold text-gold tracking-wider">
-                TAVOLA
-              </span>
             </motion.div>
           </Link>
 
