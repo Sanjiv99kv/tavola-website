@@ -31,20 +31,24 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
           ? "bg-charcoal/95 backdrop-blur-md shadow-lg shadow-black/20"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/">
             <motion.div
-              className="flex items-center gap-2"
+              className="flex items-center gap-2.5"
               whileHover={{ scale: 1.02 }}
             >
+              <img
+                src="/tavola-logo.png"
+                alt="Tavola Logo"
+                className="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(201,169,110,0.3)]"
+              />
               <span className="font-[Playfair_Display] text-2xl sm:text-3xl font-bold text-gold tracking-wider">
                 TAVOLA
               </span>
@@ -56,9 +60,8 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <span
-                  className={`font-[Cormorant_Garamond] text-sm uppercase tracking-[0.2em] transition-colors duration-300 hover:text-gold ${
-                    location === link.href ? "text-gold" : "text-ivory/70"
-                  }`}
+                  className={`font-[Cormorant_Garamond] text-sm uppercase tracking-[0.2em] transition-colors duration-300 hover:text-gold ${location === link.href ? "text-gold" : "text-ivory/70"
+                    }`}
                 >
                   {link.label}
                 </span>
@@ -104,9 +107,8 @@ export default function Navbar() {
                 >
                   <Link href={link.href}>
                     <span
-                      className={`block py-3 font-[Cormorant_Garamond] text-lg uppercase tracking-[0.15em] transition-colors ${
-                        location === link.href ? "text-gold" : "text-ivory/70 hover:text-gold"
-                      }`}
+                      className={`block py-3 font-[Cormorant_Garamond] text-lg uppercase tracking-[0.15em] transition-colors ${location === link.href ? "text-gold" : "text-ivory/70 hover:text-gold"
+                        }`}
                     >
                       {link.label}
                     </span>

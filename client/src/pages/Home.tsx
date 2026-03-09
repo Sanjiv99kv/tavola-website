@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const IMGS = {
-  hero: "/hero-dining.png",
+  hero: "/tavola-hero-enhanced.png",
   tandooriChicken: "/tandoori-chicken.png",
   chickenBiryani: "/chicken-biryani.png",
   cocktails: "/cocktails.png",
@@ -14,7 +14,8 @@ const IMGS = {
   paneerMakhani: "/paneer-makhani.png",
   chickenTikkaMasala: "/chicken-tikka-masala.png",
   dessert: "/dessert.png",
-  outdoor: "/outdoor.png",
+  outdoor: "/tavola-outdoor-enhanced.png",
+  ambience: "/tavola-ambience.png",
 };
 
 const menuItems = [
@@ -85,10 +86,10 @@ const infoItems = [
 
 const galleryImages = [
   { src: IMGS.hero, alt: "Tavola main dining hall", className: "col-span-2 row-span-2" },
+  { src: IMGS.ambience, alt: "Private celebrations at Tavola" },
+  { src: IMGS.outdoor, alt: "Vibrant outdoor seating", className: "row-span-2" },
+  { src: IMGS.cocktails, alt: "Signature cocktails", className: "col-span-2" },
   { src: IMGS.paneerMakhani, alt: "Paneer Makhani" },
-  { src: IMGS.cocktails, alt: "Signature cocktails", className: "row-span-2" },
-  { src: IMGS.outdoor, alt: "Vibrant outdoor seating", className: "col-span-2" },
-  { src: IMGS.dessert, alt: "Gulab Jamun dessert" },
 ];
 
 // Subtle parallax hero image
