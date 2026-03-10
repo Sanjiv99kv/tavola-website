@@ -45,7 +45,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.02 }}
             >
               <img
-                src="/tavola_2_transparent.png"
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663374526873/m6NDzKV979rS6rWwZzDi9A/tavola_2_transparent_ea83abee.png"
                 alt="Tavola Logo"
                 className="h-12 w-auto max-w-[180px] object-contain drop-shadow-[0_2px_12px_rgba(201,169,110,0.45)]"
               />
