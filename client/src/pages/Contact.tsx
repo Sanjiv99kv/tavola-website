@@ -62,8 +62,8 @@ export default function Contact() {
                     <h3 className="font-[Playfair_Display] text-lg text-ivory font-semibold">Address</h3>
                     <p className="font-[Lato] text-ivory/50 text-sm mt-1 leading-relaxed">
                       Gokul Nagari 2 CHS, B Wing, Thakur Village,<br />
-                      Western Express Highway, Kandivali East,<br />
-                      Mumbai, Maharashtra 400101
+                      Near Sai Star Hathway Cable, Western Express Highway,<br />
+                      Kandivali East, Mumbai – 400101
                     </p>
                     <a
                       href="https://maps.google.com/?q=Tavola+Kandivali+East+Mumbai"
@@ -148,7 +148,7 @@ export default function Contact() {
             >
               <div className="aspect-square lg:aspect-[4/5] bg-charcoal border border-gold/10 overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.2!2d72.8567!3d19.2094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDEyJzMzLjgiTiA3MsKwNTEnMjQuMSJF!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.548!2d72.8682824!3d19.2149134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b73804160b1b%3A0x1b7e1e62f5a34f0e!2sTAVOLA+FINE+DINE%2CBAR+%2C+DIESEL+CAFE!5e0!3m2!1sen!2sin!4v1709000000000!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2)" }}

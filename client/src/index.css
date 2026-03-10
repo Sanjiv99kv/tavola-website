@@ -145,6 +145,19 @@
   }
 }
 
+/* Ken Burns hero animation */
+@keyframes kenburns-hero {
+  0%, 100% { transform: scale(1.1) translate(0%, 0%); }
+  25%       { transform: scale(1.16) translate(-0.7%, -0.5%); }
+  50%       { transform: scale(1.13) translate(0.5%, -0.7%); }
+  75%       { transform: scale(1.17) translate(-0.4%, 0.5%); }
+}
+
+.animate-kenburns {
+  animation: kenburns-hero 28s ease-in-out infinite;
+  will-change: transform;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

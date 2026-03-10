@@ -56,12 +56,21 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <span
-                  className={`font-[Cormorant_Garamond] text-sm uppercase tracking-[0.2em] transition-colors duration-300 hover:text-gold ${location === link.href ? "text-gold" : "text-ivory/70"
-                    }`}
-                >
-                  {link.label}
-                </span>
+                <div className="relative py-1">
+                  <span
+                    className={`font-[Cormorant_Garamond] text-sm uppercase tracking-[0.2em] transition-colors duration-300 hover:text-gold ${location === link.href ? "text-gold" : "text-ivory/70"
+                      }`}
+                  >
+                    {link.label}
+                  </span>
+                  {location === link.href && (
+                    <motion.div
+                      layoutId="navActive"
+                      className="absolute -bottom-0.5 left-0 right-0 h-px bg-gold"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </div>
               </Link>
             ))}
           </div>

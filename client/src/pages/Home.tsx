@@ -99,7 +99,7 @@ function ParallaxHero() {
   const y = useTransform(scrollY, [0, 600], [0, 120]);
   return (
     <motion.div ref={ref} style={{ y }} className="absolute inset-0">
-      <img src={IMGS.hero} alt="Tavola fine dining" className="w-full h-full object-cover scale-110" />
+      <img src={IMGS.hero} alt="Tavola fine dining" className="w-full h-full object-cover animate-kenburns" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[#0a0a0a]" />
     </motion.div>
   );
@@ -199,7 +199,7 @@ export default function Home() {
           >
             <div className="h-px w-10 bg-gold/50" />
             <span className="font-[Cormorant_Garamond] text-gold/90 text-base sm:text-lg tracking-[0.35em] uppercase">
-              Kandivali's Finest
+              Mumbai's Finest
             </span>
             <div className="h-px w-10 bg-gold/50" />
           </motion.div>
@@ -261,7 +261,7 @@ export default function Home() {
             className="mt-12 flex gap-6"
           >
             <div className="flex flex-col items-center">
-              <span className="font-[Playfair_Display] text-2xl font-bold text-gold">3.9★</span>
+              <span className="font-[Playfair_Display] text-2xl font-bold text-gold">4.4★</span>
               <span className="font-[Lato] text-ivory/40 text-xs tracking-widest uppercase">Dining</span>
             </div>
             <div className="w-px bg-gold/20" />
@@ -767,7 +767,7 @@ export default function Home() {
               className="relative h-[360px] sm:h-[440px] overflow-hidden border border-gold/10"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.127!2d72.8622!3d19.2063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b7d0d7826661%3A0x12345!2sGokul+Nagari+2+CHS%2C+Thakur+Village%2C+Kandivali+East%2C+Mumbai!5e0!3m2!1sen!2sin!4v1"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.548!2d72.8682824!3d19.2149134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b73804160b1b%3A0x1b7e1e62f5a34f0e!2sTAVOLA+FINE+DINE%2CBAR+%2C+DIESEL+CAFE!5e0!3m2!1sen!2sin!4v1709000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: "grayscale(100%) invert(92%) hue-rotate(180deg) brightness(0.8)" }}

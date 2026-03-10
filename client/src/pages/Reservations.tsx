@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
 
-const INTERIOR_IMG = "/tavola-ambience.png";
+const INTERIOR_IMG = "/tavola-interior-real.jpg";
 
 export default function Reservations() {
   const [form, setForm] = useState({ name: "", phone: "", date: "", time: "", guests: "2", occasion: "" });
